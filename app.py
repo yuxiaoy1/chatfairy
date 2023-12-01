@@ -109,7 +109,7 @@ def logout():
         messages.append(
             {
                 "username": session["username"],
-                "message": f"{session["username"]} has left.",
+                "message": f"{session['username']} has left.",
                 "type": "auth",
             }
         )
