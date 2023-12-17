@@ -38,7 +38,7 @@ def chat():
     return render_template_string(
         """
     <title>Chatfairy</title>
-    <h3>Welcom to Chatfairy!</h3>
+    <h3>Welcome to Chatfairy!</h3>
     <div>Hello {{username}} <a href="{{ url_for('logout') }}">Logout</a></div>
     <div id="chat-box" style="height: 200px; width: 400px; border: 1px solid black; 
         border-radius: 4px; margin: 10px 0; padding: 8px; overflow:auto;"></div>
