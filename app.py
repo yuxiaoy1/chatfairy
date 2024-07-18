@@ -29,19 +29,13 @@ def login_required(func):
 @app.get("/")
 @login_required
 def index():
-    return redirect(url_for("chat"))
-
-
-@app.get("/chat")
-@login_required
-def chat():
     return render_template("chat.html", username=session["username"])
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if "username" in session:
-        return redirect(url_for("chat"))
+        return redirect(url_for("index"))
     if request.method == "POST":
         username = request.form["username"]
         session["username"] = username
@@ -52,7 +46,7 @@ def login():
                 "type": "auth",
             },
         )
-        return redirect(url_for("chat"))
+        return redirect(url_for("index"))
     return render_template("login.html")
 
 
