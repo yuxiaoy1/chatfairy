@@ -16,6 +16,10 @@ app.secret_key = "secret"
 messages = []
 
 
+def send_message(message):
+    messages.append(message)
+
+
 def login_required(func):
     @wraps(func)
     def inner(*args, **kwargs):
@@ -39,7 +43,7 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         session["username"] = username
-        messages.append(
+        send_message(
             {
                 "username": username,
                 "message": f"{username} has joined.",
@@ -53,7 +57,7 @@ def login():
 @app.get("/logout")
 def logout():
     if "username" in session:
-        messages.append(
+        send_message(
             {
                 "username": session["username"],
                 "message": f"{session['username']} has left.",
@@ -81,5 +85,5 @@ def events():
 def message():
     username = session["username"]
     message = request.json["message"]
-    messages.append({"username": username, "message": message})
+    send_message({"username": username, "message": message})
     return "OK"
