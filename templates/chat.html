@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block content %}
+<div>Hello {{username}} <a href="{{ url_for('logout') }}">Logout</a></div>
+<div
+  id="chat-box"
+  style="
+    height: 300px;
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 10px 0;
+    padding: 8px;
+    overflow: auto;
+  "
+></div>
+<form id="chat-form">
+  <input type="text" id="chat-message" placeholder="Type your message" />
+  <button>Send</button>
+</form>
+<script>
+  let chatBox = document.getElementById('chat-box')
+  let chatForm = document.getElementById('chat-form')
+  let chatMessage = document.getElementById('chat-message')
+  let sse = new EventSource('/events')
+
+  sse.onmessage = ({ data }) => {
+    let { username, message, type } = JSON.parse(data)
+    if (username === '{{username}}' && type === 'auth') return
+    chatBox.innerHTML +=
+      type === 'auth'
+        ? `<div style='color: gray'><em>${message}</em></div>`
+        : `<div>${username}: <strong>${message}</strong></div>`
+  }
+
+  chatForm.addEventListener('submit', async event => {
+    event.preventDefault()
+
+    let message = chatMessage.value.trim()
+    if (!message) return
+
+    await fetch('/message', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message }),
+    })
+    chatMessage.value = ''
+  })
+</script>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <style>
+      :root {
+        --bg: #fff;
+        --accent-bg: #f5f7ff;
+        --text: #212121;
+        --text-light: #585858;
+        --border: #898ea4;
+        --accent: #0d47a1;
+        --accent-hover: #1266e2;
+        --accent-text: var(--bg);
+        --code: #d81b60;
+        --preformatted: #444;
+        --marked: #ffdd33;
+        --disabled: #efefef;
+      }
+    </style>
+    <title>Chatfairy</title>
+  </head>
+  <body>
+    <h3>
+      <a href="/" style="text-decoration: none"> Welcom to Chatfairy!</a>
+    </h3>
+    {% block content %} {% endblock %}
+  </body>
+</html>
