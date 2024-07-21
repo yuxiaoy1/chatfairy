@@ -73,9 +73,9 @@ def logout():
 def events():
     def generate_response():
         while True:
-            if messages:
-                yield f"data: {json.dumps(messages[-1])}\n\n"
-                messages.clear()
+            for message in messages:
+                yield f"data: {json.dumps(message)}\n\n"
+            messages.clear()
 
     return app.response_class(generate_response(), mimetype="text/event-stream")
 
