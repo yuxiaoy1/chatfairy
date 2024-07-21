@@ -33,7 +33,7 @@ def login_required(func):
 @app.get("/")
 @login_required
 def index():
-    return render_template("chat.html", username=session["username"])
+    return render_template("index.html", username=session["username"])
 
 
 @app.route("/login", methods=["GET", "POST"])
